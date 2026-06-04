@@ -1,39 +1,32 @@
-import { useEffect, useState } from 'react'
-import { fetchSkills } from '../services/api'
+import { useState } from 'react'
 
-const FALLBACK = [
+const SKILLS = [
   { name: 'Python', category: 'Backend', level: 92 },
   { name: 'FastAPI', category: 'Backend', level: 88 },
   { name: 'Django', category: 'Backend', level: 85 },
+  { name: 'Spring Boot', category: 'Backend', level: 65 },
   { name: 'React', category: 'Frontend', level: 78 },
   { name: 'JavaScript', category: 'Frontend', level: 80 },
-  { name: 'MySQL', category: 'Database', level: 82 },
   { name: 'HTML/CSS', category: 'Frontend', level: 88 },
+  { name: 'Bootstrap', category: 'Frontend', level: 85 },
   { name: 'Java', category: 'Programming', level: 72 },
+  { name: 'C', category: 'Programming', level: 70 },
+  { name: 'MySQL', category: 'Database', level: 82 },
   { name: 'LLM / GenAI', category: 'AI', level: 75 },
+  { name: 'Prompt Eng.', category: 'AI', level: 78 },
   { name: 'PyTorch', category: 'AI', level: 68 },
   { name: 'Git', category: 'Tools', level: 80 },
 ]
 
 const COL = {
-  Backend: '#00e676',
-  Frontend: '#00e5ff',
-  Programming: '#fbbf24',
-  AI: '#ff4d8d',
-  Database: '#a78bfa',
-  Tools: '#fb923c',
+  Backend: '#00e676', Frontend: '#00e5ff', Programming: '#fbbf24',
+  AI: '#ff4d8d', Database: '#a78bfa', Tools: '#fb923c',
 }
 
 export default function Skills() {
-  const [skills, setSkills] = useState([])
   const [filter, setFilter] = useState('All')
-
-  useEffect(() => {
-    fetchSkills().then(setSkills).catch(() => setSkills(FALLBACK))
-  }, [])
-
-  const cats = ['All', ...new Set(skills.map(s => s.category))]
-  const visible = filter === 'All' ? skills : skills.filter(s => s.category === filter)
+  const cats = ['All', ...new Set(SKILLS.map(s => s.category))]
+  const visible = filter === 'All' ? SKILLS : SKILLS.filter(s => s.category === filter)
 
   return (
     <section id="skills" className="section">
